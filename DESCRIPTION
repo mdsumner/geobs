@@ -16,3 +16,5 @@ Imports:
     wk
 URL: https://github.com/mdsumner/geobs
 BugReports: https://github.com/mdsumner/geobs/issues
+Suggests: 
+    readr

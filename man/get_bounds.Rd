@@ -4,7 +4,14 @@
 \alias{get_bounds}
 \title{Get geoboundaries in a dataframe from zipped geoboundaries with a code and level.}
 \usage{
-get_bounds(code = "AUS", level = "ADM1", simplified = FALSE)
+get_bounds(
+  code = "AUS",
+  level = "ADM1",
+  simplified = FALSE,
+  geojson = FALSE,
+  quiet = TRUE,
+  data = TRUE
+)
 }
 \arguments{
 \item{code}{3-letter code}
@@ -12,6 +19,12 @@ get_bounds(code = "AUS", level = "ADM1", simplified = FALSE)
 \item{level}{administrative level (of detail, e.g. "ADM1")}
 
 \item{simplified}{return the simplified layer for the level, \code{FALSE} is default}
+
+\item{geojson}{use the GeoJSON source (not the SHP shapefile which is default), \code{FALSE} by default}
+
+\item{quiet}{simple debug messages are printed if this is \code{TRUE}}
+
+\item{data}{return the data, or just the source and layer name, default is \code{TRUE}}
 }
 \value{
 data frame with fields and geometry (see \link[wk:wkb]{wk::wkb})
@@ -27,6 +40,7 @@ See examples for available codes.
 get_bounds("EGY", simplified = TRUE)
 
 ## get a table of codes and levels
-codes <- readr::read_csv("https://github.com/wmgeolab/geoBoundaries/raw/main/releaseData/geoBoundariesOpen-meta.csv")
+b <- "https://github.com/wmgeolab/geoBoundaries/raw/main/releaseData"
+codes <- readr::read_csv(file.path(b, "geoBoundariesOpen-meta.csv"))
 subset(codes, boundaryISO == "SWE", select = c("boundaryISO", "boundaryName", "boundaryType"))
 }
