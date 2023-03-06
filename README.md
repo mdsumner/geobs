@@ -4,6 +4,8 @@
 # geobs
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/mdsumner/geobs/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mdsumner/geobs/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of geobs is to get geo boundaries.
