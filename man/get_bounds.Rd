@@ -6,9 +6,9 @@
 \usage{
 get_bounds(
   code = "AUS",
-  level = "ADM1",
-  simplified = FALSE,
-  geojson = FALSE,
+  level = "ADM0",
+  simplified = TRUE,
+  srctype = "shp",
   quiet = TRUE,
   data = TRUE
 )
@@ -20,7 +20,7 @@ get_bounds(
 
 \item{simplified}{return the simplified layer for the level, \code{FALSE} is default}
 
-\item{geojson}{use the GeoJSON source (not the SHP shapefile which is default), \code{FALSE} by default}
+\item{srctype}{'shp' by default, but on advisement (use 'geojson' or 'topojson' for alternative)}
 
 \item{quiet}{simple debug messages are printed if this is \code{TRUE}}
 

@@ -8,7 +8,7 @@
 #' @param code 3-letter code
 #' @param level administrative level (of detail, e.g. "ADM1")
 #' @param simplified return the simplified layer for the level, `FALSE` is default
-#' @param geojson use the GeoJSON source (not the SHP shapefile which is default), `FALSE` by default
+#' @param srctype 'shp' by default, but on advisement (use 'geojson' or 'topojson' for alternative)
 #' @param quiet simple debug messages are printed if this is `TRUE`
 #' @param data return the data, or just the source and layer name, default is `TRUE`
 #'
@@ -25,23 +25,33 @@
 #' b <- "https://github.com/wmgeolab/geoBoundaries/raw/main/releaseData"
 #' codes <- readr::read_csv(file.path(b, "geoBoundariesOpen-meta.csv"))
 #' subset(codes, boundaryISO == "SWE", select = c("boundaryISO", "boundaryName", "boundaryType"))
-get_bounds <- function(code = "AUS", level = "ADM1", simplified = FALSE, geojson = FALSE,  quiet = TRUE, data = TRUE) {
-  f <- sprintf("/vsizip//vsicurl/https://github.com/wmgeolab/geoBoundaries/raw/main/releaseData/gbOpen/%s/%s/geoBoundaries-%s-%s-all.zip", code, level, code, level)
-  ## layers are
-  #geoBoundaries-SWE-ADM1 (Polygon)
-  #geoBoundaries-SWE-ADM1_simplified
+get_bounds <- function(code = "AUS", level = "ADM0", simplified = TRUE, srctype = "shp",  quiet = TRUE, data = TRUE) {
   simplif <- ""
   if (simplified) {
     simplif <- "_simplified"
   }
+  ## layers are
+  #geoBoundaries-SWE-ADM1 (Polygon)
+  #geoBoundaries-SWE-ADM1_simplified
+  # SWEADM1gbOpen
   layer <- sprintf("geoBoundaries-%s-%s%s", code, level, simplif)
-  if (geojson) f <- file.path(f, sprintf("%s.geojson", layer))
-  if (!quiet) print(str(vapour::vapour_layer_info(f, layer)))
+
+  srcbase <- sprintf("/vsizip//vsicurl/https://github.com/wmgeolab/geoBoundaries/raw/main/releaseData/gbOpen/%s/%s/geoBoundaries-%s-%s-all.zip", code, level, code, level)
+  if (srctype == "geojson") {
+   #srcbase<- sprintf("/vsicurl/https://github.com/wmgeolab/geoBoundaries/raw/main/releaseData/gbOpen/%s/%s/geoBoundaries-%s-%s%s.geojson", code, level, code, level, simplif)
+   srcbase<- file.path(srcbase, sprintf("%s.geojson", layer))
+  }
+
+  if (srctype == "topojson") {
+   srcbase <- sprintf("/vsicurl/https://github.com/wmgeolab/geoBoundaries/raw/main/releaseData/gbOpen/%s/%s/geoBoundaries-%s-%s%s.topojson", code, level, code, level, simplif)
+    layer <- sprintf("%s%sgbOpen", code, level)
+  }
+  if (!quiet) print(str(vapour::vapour_layer_info(srcbase, layer)))
   if (!data) {
-    return(tibble::tibble(dsn = f,
+    return(tibble::tibble(dsn = srcbase,
              layer = layer))
   }
-  d <- tibble::as_tibble(vapour_read_fields(f, layer))
-  d$geometry <- wk::wkb(vapour_read_geometry(f, layer))
+  d <- tibble::as_tibble(vapour_read_fields(srcbase, layer))
+  d$geometry <- wk::wkb(vapour_read_geometry(srcbase, layer))
   d
 }
