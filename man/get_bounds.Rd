@@ -2,9 +2,9 @@
 % Please edit documentation in R/get_bounds.R
 \name{get_bounds}
 \alias{get_bounds}
-\title{Get geoboundaries in a dataframe from GeoJSON with a code}
+\title{Get geoboundaries in a dataframe from zipped geoboundaries with a code and level.}
 \usage{
-get_bounds(code = "AUS")
+get_bounds(code = "AUS", level = "ADM1", simplified = FALSE)
 }
 \arguments{
 \item{code}{3-letter code}
@@ -13,11 +13,16 @@ get_bounds(code = "AUS")
 data frame with fields and geometry (see \link[wk:wkb]{wk::wkb})
 }
 \description{
-Currently hardcoded to ADM1, see https://www.geoboundaries.org/api.html
+Currently hardcoded to gbOpen, see https://github.com/wmgeolab/geoBoundaries/tree/main/releaseData/gbOpen
 }
 \details{
 There's no caching done, but the function get_bounds is memoized.
+See examples for available codes.
 }
 \examples{
 get_bounds("EGY")
+
+## get a table of codes and levels
+codes <- readr::read_csv("https://github.com/wmgeolab/geoBoundaries/raw/main/releaseData/geoBoundariesOpen-meta.csv")
+subset(codes, boundaryISO == "SWE", select = c("boundaryISO", "boundaryName", "boundaryType"))
 }
