@@ -8,6 +8,10 @@ get_bounds(code = "AUS", level = "ADM1", simplified = FALSE)
 }
 \arguments{
 \item{code}{3-letter code}
+
+\item{level}{administrative level (of detail, e.g. "ADM1")}
+
+\item{simplified}{return the simplified layer for the level, \code{FALSE} is default}
 }
 \value{
 data frame with fields and geometry (see \link[wk:wkb]{wk::wkb})
@@ -20,7 +24,7 @@ There's no caching done, but the function get_bounds is memoized.
 See examples for available codes.
 }
 \examples{
-get_bounds("EGY")
+get_bounds("EGY", simplified = TRUE)
 
 ## get a table of codes and levels
 codes <- readr::read_csv("https://github.com/wmgeolab/geoBoundaries/raw/main/releaseData/geoBoundariesOpen-meta.csv")

@@ -6,6 +6,8 @@
 #' See examples for available codes.
 #'
 #' @param code 3-letter code
+#' @param level administrative level (of detail, e.g. "ADM1")
+#' @param simplified return the simplified layer for the level, `FALSE` is default
 #'
 #' @return data frame with fields and geometry (see [wk::wkb])
 #' @export
@@ -14,7 +16,7 @@
 #' @importFrom wk wkb
 #' @importFrom memoise memoize
 #' @examples
-#' get_bounds("EGY")
+#' get_bounds("EGY", simplified = TRUE)
 #'
 #' ## get a table of codes and levels
 #' codes <- readr::read_csv("https://github.com/wmgeolab/geoBoundaries/raw/main/releaseData/geoBoundariesOpen-meta.csv")
