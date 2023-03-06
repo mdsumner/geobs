@@ -1,8 +1,10 @@
 #' Get geoboundaries in a dataframe from GeoJSON with a code
 #'
+#' Currently hardcoded to ADM1, see https://www.geoboundaries.org/api.html
+#'
 #' @param code 3-letter code
 #'
-#' @return
+#' @return data frame with fields and geometry (see [wk::wkb])
 #' @export
 #' @importFrom tibble as_tibble
 #' @importFrom vapour vapour_read_fields vapour_read_geometry
