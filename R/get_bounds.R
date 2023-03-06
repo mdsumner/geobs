@@ -2,6 +2,7 @@
 #'
 #' Currently hardcoded to ADM1, see https://www.geoboundaries.org/api.html
 #'
+#' There's no caching done, but the function get_bounds is memoized.
 #' @param code 3-letter code
 #'
 #' @return data frame with fields and geometry (see [wk::wkb])
@@ -9,7 +10,7 @@
 #' @importFrom tibble as_tibble
 #' @importFrom vapour vapour_read_fields vapour_read_geometry
 #' @importFrom wk wkb
-#' @importFrom
+#' @importFrom memoise memoize
 #' @examples
 #' get_bounds("EGY")
 get_bounds <- function(code = "AUS") {
