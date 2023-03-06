@@ -1,0 +1,16 @@
+citHeader("To cite geobs in publications use the citation for geoBoundaries:")
+
+citEntry(
+  entry    = "Article",
+  title    = "geoBoundaries: A global database of political administrative boundaries.",
+  author   = "Runfola, D. et al.",
+  journal  = "PLOS One",
+  year     = "2020",
+  volume   = "15",
+  number   = "4",
+  #pages    = ,
+  url      = "https://doi.org/10.1371/journal.pone.0231866",
+  textVersion = paste('Runfola, Daniel, Community Contributors, and [v4.0: Lindsey Rogers, Joshua Habib, Sidonie Horn, Sean Murphy, Dorian Miller, Hadley Day, Lydia Troup, Dominic Fornatora, Natalie Spage, Kristina Pupkiewicz, Michael Roth, Carolina Rivera, Charlie Altman, Isabel Schruer, Tara McLaughlin, Russ Biddle, Renee Ritchey, Emily Topness, James Turner, Sam Updike, Helena Buckman, Neel Simpson, Jason Lin], [v2.0: Austin Anderson, Heather Baier, Matt Crittenden, Elizabeth Dowker, Sydney Fuhrig, Seth Goodman, Grace Grimsley, Rachel Layko, Graham Melville, Maddy Mulder, Rachel Oberman, Joshua Panganiban, Andrew Peck, Leigh Seitz, Sylvia Shea, Hannah Slevin, Rebecca Yougerman, Lauren Hobbs]. "geoBoundaries: A global database of political administrative boundaries." Plos one 15, no. 4 (2020): e0231866.'
+
+  )
+)

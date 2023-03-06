@@ -15,6 +15,9 @@ data frame with fields and geometry (see \link[wk:wkb]{wk::wkb})
 \description{
 Currently hardcoded to ADM1, see https://www.geoboundaries.org/api.html
 }
+\details{
+There's no caching done, but the function get_bounds is memoized.
+}
 \examples{
 get_bounds("EGY")
 }
