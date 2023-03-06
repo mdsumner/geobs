@@ -11,6 +11,7 @@
 #' @param srctype 'shp' by default, but on advisement (use 'geojson' or 'topojson' for alternative)
 #' @param quiet simple debug messages are printed if this is `TRUE`
 #' @param data return the data, or just the source and layer name, default is `TRUE`
+#' @param what read "fields" or "geometry" or "" (both)
 #'
 #' @return data frame with fields and geometry (see [wk::wkb])
 #' @export
@@ -25,7 +26,7 @@
 #' b <- "https://github.com/wmgeolab/geoBoundaries/raw/main/releaseData"
 #' codes <- readr::read_csv(file.path(b, "geoBoundariesOpen-meta.csv"))
 #' subset(codes, boundaryISO == "SWE", select = c("boundaryISO", "boundaryName", "boundaryType"))
-get_bounds <- function(code = "AUS", level = "ADM0", simplified = TRUE, srctype = "shp",  quiet = TRUE, data = TRUE) {
+get_bounds <- function(code = "AUS", level = "ADM0", simplified = TRUE, srctype = "shp",  quiet = TRUE, data = TRUE, what = "") {
   simplif <- ""
   if (simplified) {
     simplif <- "_simplified"
@@ -51,7 +52,15 @@ get_bounds <- function(code = "AUS", level = "ADM0", simplified = TRUE, srctype 
     return(tibble::tibble(dsn = srcbase,
              layer = layer))
   }
-  d <- tibble::as_tibble(vapour_read_fields(srcbase, layer))
-  d$geometry <- wk::wkb(vapour_read_geometry(srcbase, layer))
+  if (what == "") {
+    d <- tibble::as_tibble(vapour_read_fields(srcbase, layer))
+    d$geometry <- wk::wkb(vapour_read_geometry(srcbase, layer))
+  }
+  if (what == "geometry") {
+    d <- tibble(geometry = wk::wkb(vapour_read_geometry(srcbase, layer)))
+  }
+  if (what == "fields") {
+    d <- tibble::as_tibble(vapour_read_fields(srcbase, layer))
+  }
   d
 }

@@ -10,7 +10,8 @@ get_bounds(
   simplified = TRUE,
   srctype = "shp",
   quiet = TRUE,
-  data = TRUE
+  data = TRUE,
+  what = ""
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ get_bounds(
 \item{quiet}{simple debug messages are printed if this is \code{TRUE}}
 
 \item{data}{return the data, or just the source and layer name, default is \code{TRUE}}
+
+\item{what}{read "fields" or "geometry" or "" (both)}
 }
 \value{
 data frame with fields and geometry (see \link[wk:wkb]{wk::wkb})
